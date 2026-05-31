@@ -1,11 +1,12 @@
-﻿using HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Dtos;
+using HotelManagementProject.Domain.Entites;
 
 namespace HotelManagementProject.Domain.Intefacies;
 public interface IBookingRepository
 {
-    Task<List<Booking>> GetBookings();
-    Task<Booking> GetBooking(Guid id);
-    Task<bool> AddBooking(Booking booking);
-    Task<bool> UpdateBooking(Guid id,Booking booking);
-    Task<bool> Delete(Guid id);
+    Task<List<Booking>> GetBookingsAsync();
+    Task<Booking?> GetBookingAsync(Guid id);
+    Task<bool> AddBookingAsync(Booking booking);
+    Task<bool> UpdateBookingAsync(Guid id, BookingUpdateDTO booking);
+    Task<bool> DeleteAsync(Guid id);
 }
