@@ -3,7 +3,6 @@ using HotelManagementProject.Domain.Dtos;
 using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace HotelManagementProject.Repository.Repositories;
 
@@ -18,7 +17,7 @@ public class HotelRepository : IHotelRepository
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var hotel =await GetById(id);
+        var hotel =await GetByIdAsync(id);
          _context.Hotels.Remove(hotel);
         
         return await _context.SaveChangesAsync() > 0;
@@ -48,6 +47,5 @@ public class HotelRepository : IHotelRepository
         hotel.Name=Hotel.Name;
         _context.Hotels.Update(hotel);
         return await _context.SaveChangesAsync() > 0;
-
     }
 }
