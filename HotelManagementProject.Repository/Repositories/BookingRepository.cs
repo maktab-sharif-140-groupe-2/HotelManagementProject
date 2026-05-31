@@ -26,7 +26,7 @@ public class BookingRepository : IBookingRepository
 
     public Task<bool> Delete(Guid id)
     {
-        
+        throw new NotImplementedException();
     }
 
     public Task<Booking> GetBooking(Guid id)
