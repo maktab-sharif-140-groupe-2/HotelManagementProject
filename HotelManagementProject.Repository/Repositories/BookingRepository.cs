@@ -1,6 +1,7 @@
 ﻿
 
 using HotelManagementProject.DataAccess.AppDbContextFile;
+using HotelManagementProject.Domain.Dtos;
 using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using Microsoft.EntityFrameworkCore;
@@ -18,29 +19,43 @@ public class BookingRepository : IBookingRepository
         _bookings = _appContext.Bookings;
     }
  
-    public async Task<bool> AddBooking(Booking booking)
+    public async Task<bool> AddBookingAsync(Booking booking)
     {
         _bookings.Add(booking);
         return await _appContext.SaveChangesAsync() > 0;
     }
 
-    public Task<bool> Delete(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var booking = await GetBookingAsync(id);
+        if (booking is null)
+            return false;
+        _bookings.Remove(booking);
+        return await _appContext.SaveChangesAsync() > 0;
     }
 
-    public Task<Booking> GetBooking(Guid id)
+
+    public async Task<Booking?> GetBookingAsync(Guid id)
     {
-        throw new NotImplementedException();
+       var booking=  _bookings.FirstOrDefaultAsync(b=> b.Id==id);
+        return await booking;
     }
 
-    public Task<List<Booking>> GetBookings()
+    public async Task<List<Booking>> GetBookingsAsync()
     {
-        throw new NotImplementedException();
+      return await _bookings.ToListAsync();
+        
     }
 
-    public Task<bool> UpdateBooking(Guid id, Booking booking)
+    public async Task<bool> UpdateBookingAsync(Guid id, BookingUpdateDTO newbooking)
     {
-        throw new NotImplementedException();
+        var booking = await GetBookingAsync(id);
+        if (booking is null)
+            return false;
+        booking.CheckIn = newbooking.NewCheckIn;
+        booking.CheckOut= newbooking.NewCheckOut;
+        _bookings.Update(booking);
+        return await _appContext.SaveChangesAsync() > 0;
+
     }
 }
