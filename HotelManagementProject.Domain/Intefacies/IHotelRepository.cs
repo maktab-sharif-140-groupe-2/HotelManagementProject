@@ -8,6 +8,7 @@ public interface IHotelRepository
     Task<bool> AddHotel(Hotel Hotel);
     Task<bool> UpdateHotel(Guid id, Hotel Hotel);
     Task<bool> Delete(Guid id);
+    Task<Hotel> GetById(Guid id);
 
 
 }
