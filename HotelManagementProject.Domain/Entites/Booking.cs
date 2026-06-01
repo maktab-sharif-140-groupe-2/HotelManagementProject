@@ -9,9 +9,10 @@ public class Booking : BaseEntity
         RoomId = roomId;
         CheckIn = checkIn;
         CheckOut = checkOut;
+        
         Validation();
     }
-
+    
     public int RoomId { get; private set; }
     public DateTime CheckIn { get; private set; }
     public DateTime CheckOut { get; private set; }
