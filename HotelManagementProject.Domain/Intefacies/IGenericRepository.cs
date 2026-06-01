@@ -1,4 +1,5 @@
 ﻿using HotelManagementProject.Domain.Abstraction;
+using System.Linq.Expressions;
 
 namespace HotelManagementProject.Domain.Intefacies;
 
@@ -8,7 +9,7 @@ public interface IGenericRepository<T> where T : BaseEntity
     /// دریافت همه موجودیت ها 
     /// </summary>
     /// <returns></returns>
-    Task<List<T>> GetAllAsync(bool tracking = false);
+    Task<List<TResult>> QueryAsync<TResult>(Expression<Func<T, TResult>> selector, bool tracking = false);
 
     /// <summary>
     /// دریافت یک موجدیت با ایدی 

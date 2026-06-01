@@ -2,6 +2,7 @@
 using HotelManagementProject.Domain.Abstraction;
 using HotelManagementProject.Domain.Intefacies;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace HotelManagementProject.Repository.Repositories;
 
@@ -24,14 +25,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await _dbContext.SaveChangesAsync() > 0;
     }
 
-    public async Task<List<T>> GetAllAsync(bool tracking = false)
+    public async Task<List<TResult>> QueryAsync<TResult>(Expression<Func<T, TResult>> selector, bool tracking = false)
     {
         var query = Entities.AsQueryable();
 
         if (!tracking)
             query = query.AsNoTracking();
 
-        return await query.ToListAsync();
+        return await query.Select(selector).ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(int id, bool tracking = false)

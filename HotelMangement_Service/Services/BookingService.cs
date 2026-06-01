@@ -15,7 +15,7 @@ namespace HotelMangement_Service.BookingServices
         private IRoomRepository _roomRepository;
         public async Task<bool> CreateBooking(int roomId, int daysofStay)
         {
-           var room=await _roomRepository.GetByIdAsync(roomId);
+            var room = await _roomRepository.GetByIdAsync(roomId);
             if (room == null)
             {
                 throw new ArgumentNullException("RoomIdCant be null");
@@ -24,9 +24,9 @@ namespace HotelMangement_Service.BookingServices
                 throw new ArgumentException("cant be zero or more than 100");
             if (daysofStay <= 100)
                 throw new ArgumentException("cant be zero or more than 100");
-            var booking = new Booking(roomId,DateTime.Now,DateTime.Now.AddDays(daysofStay));
+            var booking = new Booking(roomId, DateTime.Now, DateTime.Now.AddDays(daysofStay));
 
-           var result= await _bookingRepository.AddAsync(booking);
+            var result = await _bookingRepository.AddAsync(booking);
             return result;
         }
     }
