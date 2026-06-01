@@ -1,0 +1,22 @@
+﻿using HotelManagementProject.Domain.Abstraction;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HotelManagementProject.DataAccess.ModelConfiguration
+{
+    public abstract class BaseModelConfiguration<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
+    {
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
+        {
+            builder.HasKey(b => b.Id);
+            ConfigureEntity(builder);
+        }
+        protected abstract void ConfigureEntity(EntityTypeBuilder<TEntity> builder);
+
+    }
+}
