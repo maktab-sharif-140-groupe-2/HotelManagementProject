@@ -9,16 +9,20 @@ public class Booking : BaseEntity
         RoomId = roomId;
         CheckIn = checkIn;
         CheckOut = checkOut;
+        
+        Validation();
     }
-
-    public Guest Guest { get; set; }
-    public int RoomId { get; set; }
-    public Room Room { get; set; }
-    public DateTime CheckIn { get; set; }
-    public DateTime CheckOut { get; set; }
+    
+    public int RoomId { get; private set; }
+    public DateTime CheckIn { get; private set; }
+    public DateTime CheckOut { get; private set; }
+    public Guest Guest { get; private set; }
+    public Room Room { get; private set; }
 
     protected override void Validation()
     {
-        throw new NotImplementedException();
+        if (CheckIn >= CheckOut)
+            throw new InvalidDataException("CheckIn can't be farther CheckOut ");
     }
+ 
 }
