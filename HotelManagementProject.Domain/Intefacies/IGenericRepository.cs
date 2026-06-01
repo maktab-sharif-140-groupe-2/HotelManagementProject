@@ -1,0 +1,40 @@
+﻿using HotelManagementProject.Domain.Abstraction;
+
+namespace HotelManagementProject.Domain.Intefacies;
+
+public interface IGenericRepository<T> where T : BaseEntity
+{
+    /// <summary>
+    /// دریافت همه موجودیت ها 
+    /// </summary>
+    /// <returns></returns>
+    Task<List<T>> GetAllAsync(bool tracking = false);
+
+    /// <summary>
+    /// دریافت یک موجدیت با ایدی 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<T?> GetByIdAsync(int id, bool tracking = false);
+
+    /// <summary>
+    /// اضافه کردن موجودیت 
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<bool> AddAsync(T entity);
+
+    /// <summary>
+    /// اپدیت موجودیت
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    Task<bool> UpdateAsync(T entity);
+
+    /// <summary>
+    /// حذف نرم موجودیت 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<bool> SoftDeleteAsync(int id);
+}
