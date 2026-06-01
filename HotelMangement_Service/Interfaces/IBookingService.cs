@@ -1,5 +1,10 @@
-﻿namespace HotelMangement_Service.Interfaces;
+﻿using HotelManagementProject.Domain.Entites;
 
-public interface IBookingService
+namespace HotelMangement_Service.Interfaces
 {
+    public interface IBookingService
+    {
+        Task<bool> CreateBooking(int roomId,int daysofStay);
+
+    }
 }
