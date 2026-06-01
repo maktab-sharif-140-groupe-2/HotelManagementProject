@@ -12,4 +12,9 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
     public RoomRepository(AppDbContext dbContext) : base(dbContext)
     {
     }
+
+    public async Task<Room?> GetRoomByRoomNumberAsync(int roomNumber)
+    {
+        return await Entities.FirstOrDefaultAsync(r =>  r.RoomNumber == roomNumber);
+    }
 }
