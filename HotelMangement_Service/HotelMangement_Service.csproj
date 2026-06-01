@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HotelManagementProject.Domain\HotelManagementProject.Domain.csproj" />
   </ItemGroup>
 
