@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/DataAccess/">
+    <Project Path="HotelManagementProject.DataAccess/HotelManagementProject.DataAccess.csproj" />
+    <Project Path="HotelManagementProject.Repository/HotelManagementProject.Repository.csproj" />
+  </Folder>
+  <Folder Name="/Models/">
+    <Project Path="HotelManagementProject.Domain/HotelManagementProject.Domain.csproj" />
+  </Folder>
+</Solution>
