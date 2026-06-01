@@ -6,4 +6,5 @@
     <Project Path="HotelManagementProject.DataAccess/HotelManagementProject.DataAccess.csproj" />
     <Project Path="HotelManagementProject.Repository/HotelManagementProject.Repository.csproj" />
   </Folder>
+  <Project Path="HotelMangement_Service/HotelMangement_Service.csproj" Id="fe2bcc75-9a47-4db8-bf40-eda68fd599e7" />
 </Solution>
