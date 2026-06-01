@@ -1,6 +1,6 @@
 ﻿using HotelManagementProject.Domain.Entites;
 
-namespace HotelMangement_Service.BookingServices
+namespace HotelMangement_Service.Interfaces
 {
     public interface IBookingService
     {
