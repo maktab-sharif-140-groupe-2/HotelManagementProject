@@ -13,7 +13,7 @@ namespace HotelMangement_Service.BookingServices
     {
         private IBookingRepository _bookingRepository;
         private IRoomRepository _roomRepository;
-        public async Task<bool> CreateBooking(int roomId,DateTime enterDate ,int daysofStay)
+        public async Task<bool> CreateBooking(int roomId,DateTime enteryDate ,int daysofStay)
         {
             if (enterDate > DateTime.Now)
             {
