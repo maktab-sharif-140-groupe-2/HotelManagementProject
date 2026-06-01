@@ -1,4 +1,5 @@
 ﻿using HotelManagementProject.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,13 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Guest> builder)
         {
-            builder.
+            builder.Property(g => g.FullName).HasColumnType("NVARCHAR").HasMaxLength(50).IsRequired();
+            builder.Property(g => g.NationalId).HasColumnType("NVARCHAR").HasMaxLength(10).IsRequired();
+            builder.Property(g => g.ModifiedAt).HasColumnType("DATETIME2");
+            
+            
+            builder.HasIndex(g => g.NationalId).IsUnique();
+            
         }
     }
 }
