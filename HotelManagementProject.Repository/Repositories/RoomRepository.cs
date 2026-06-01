@@ -27,11 +27,6 @@ public class RoomRepository
         return await _context.Rooms.FindAsync(id);
     }
 
-    public async Task<Room> GetRoomAsync(Guid id)
-    {
-        return await _context.Rooms.FindAsync(id);
-    }
-
     public async Task<List<Room>> GetRoomsAsync()
     {
         return await _context.Rooms.Where(x => !x.IsDeleted).ToListAsync();
