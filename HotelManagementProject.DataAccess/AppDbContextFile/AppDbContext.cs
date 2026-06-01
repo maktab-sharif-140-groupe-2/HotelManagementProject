@@ -1,6 +1,5 @@
 ﻿using HotelManagementProject.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
-
 namespace HotelManagementProject.DataAccess.AppDbContextFile;
 public class AppDbContext:DbContext
 {
