@@ -3,9 +3,9 @@
 namespace HotelManagementProject.Domain.Intefacies;
 public interface IRoomRepository
 {
-    Task<List<Room>> GetRooms();
-    Task<Room?> GetRoom(Guid id);
-    Task<bool> AddRoom(Room Room);
-    Task<bool> UpdateRoom(Guid id, Room Room);
-    Task<bool> Delete(Guid id);
+    Task<List<Room>> GetRoomsAsync();
+    Task<Room?> GetRoomAsync(Guid id);
+    Task<bool> AddRoomAsync(Room Room);
+    Task<bool> UpdateRoomAsync(Guid id, RoomUpdateDTO Room);
+    Task<bool> DeleteAsync(Guid id);
 }
