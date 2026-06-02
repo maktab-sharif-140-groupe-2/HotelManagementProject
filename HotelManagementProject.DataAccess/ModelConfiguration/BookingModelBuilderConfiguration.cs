@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementProject.DataAccess.ModelConfiguration
 {
-    public class BookModelBuilderConfiguration : BaseModelConfiguration<Booking>
+    public class BookingModelBuilderConfiguration : BaseModelConfiguration<Booking>
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Booking> builder)
         {
