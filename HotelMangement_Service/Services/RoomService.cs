@@ -27,7 +27,7 @@ public class RoomService : IRoomService
         return await _roomRepository.AddAsync(room);
     }
 
-    public async Task<RoomDto?> GetRoomByIdAsync(Guid roomId, bool tracking)
+    public async Task<RoomDto> GetRoomByIdAsync(Guid roomId, bool tracking)
     {
         var room = await _roomRepository.GetByIdAsync(roomId, tracking);
 
