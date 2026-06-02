@@ -1,33 +1,55 @@
 ﻿using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using HotelMangement_Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HotelMangement_Service.Services
+namespace HotelMangement_Service.Services;
+public class BookingService : IBookingService
 {
-    public class BookingService : IBookingService
-    {
-        private IBookingRepository _bookingRepository;
-        private IRoomRepository _roomRepository;
-        public async Task<bool> CreateBooking(int roomId,DateTime enteryDate ,int daysofStay)
-        {
-            var room = await _roomRepository.GetByIdAsync(roomId);
-            if (room == null)
-            {
-                throw new ArgumentNullException("RoomIdCant be null");
-            }
-            if (daysofStay == 0)
-                throw new ArgumentException("cant be zero or more than 100");
-            if (daysofStay <= 100)
-                throw new ArgumentException("cant be zero or more than 100");
-            var booking = new Booking(roomId, DateTime.Now, DateTime.Now.AddDays(daysofStay));
+    private IBookingRepository _bookingRepository;
+    private IRoomRepository _roomRepository;
 
-            var result = await _bookingRepository.AddAsync(booking);
-            return result;
-        }
+    public BookingService(IBookingRepository bookingRepository, IRoomRepository roomRepository)
+    {
+        _bookingRepository = bookingRepository;
+        _roomRepository = roomRepository;
     }
+
+    public async Task<bool> CancelBooking(Guid bookingId)
+    {
+        var booking=await _bookingRepository.GetByIdAsync(bookingId);
+        if (booking == null)
+            throw new InvalidDataException("the booking id is invalid");
+        booking.Delete();
+        return true;
+    }
+
+    public async Task<bool> CreateBooking(Guid roomId, DateOnly enteryDate, int daysofStay)
+    {
+        var room = await _roomRepository.GetByIdAsync(roomId);
+        if (room == null)
+        {
+            throw new ArgumentNullException("Not Exist this Room");
+        }
+        if (daysofStay == 0)
+            throw new ArgumentException("days of stay can't be zero");
+        if (daysofStay > 100)
+            throw new ArgumentException("days of stay can't be more than 100");
+        await CheckForConflictBooking(roomId, enteryDate, daysofStay);
+        var booking = new Booking(roomId, enteryDate, enteryDate.AddDays(daysofStay));
+        return await _bookingRepository.AddAsync(booking);
+    }
+
+    private async Task<bool> CheckForConflictBooking(Guid roomId, DateOnly enteryDate, int daysofStay)
+    {
+        //AI :)
+        var checkOut = enteryDate.AddDays(daysofStay);
+        var hasConflict = await _bookingRepository.AnyAsync(x => x.RoomId == roomId &&
+        enteryDate < x.CheckOut &&
+            checkOut > x.CheckIn);
+        if (hasConflict)
+            throw new InvalidDataException("this time room is reserved");
+        return true;
+    }
+
+
+
 }

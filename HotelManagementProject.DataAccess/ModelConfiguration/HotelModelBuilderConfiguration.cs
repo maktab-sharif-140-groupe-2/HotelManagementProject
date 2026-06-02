@@ -13,7 +13,7 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Hotel> builder)
         {
-            builder.HasMany(h => h.Rooms).WithOne(r => r.Hotel).HasForeignKey(r => r.Id);
+            builder.HasMany(h => h.Rooms).WithOne(r => r.Hotel).HasForeignKey(r => r.HotelId);
             
             builder.Property(h=>h.City).HasColumnType("NVARCHAR").HasMaxLength(30).IsRequired();
             builder.Property(h=>h.Name).HasColumnType("NVARCHAR").HasMaxLength(50).IsRequired();

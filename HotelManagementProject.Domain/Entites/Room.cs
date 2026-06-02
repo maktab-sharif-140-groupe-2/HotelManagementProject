@@ -4,7 +4,7 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Room : BaseEntity
 {
-    public Room(int roomNumber, decimal pricePerNight, int hotelId)
+    public Room(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
         RoomNumber = roomNumber;
         PricePerNight = pricePerNight;
@@ -14,7 +14,7 @@ public class Room : BaseEntity
 
     public int RoomNumber { get; private set; }
     public decimal PricePerNight { get; private set; }
-    public int HotelId { get; private set; }
+    public Guid HotelId { get; private set; }
     public Hotel Hotel { get; private set; }
     public ICollection<Booking> Bookings { get; private set; }=new List<Booking>();
 
@@ -25,6 +25,15 @@ public class Room : BaseEntity
         if (PricePerNight < 0)
             throw new InvalidDataException("Price can't be negative");
     }
+
+    public Room UpdatePrice(decimal newPrice)
+    {
+        PricePerNight=newPrice;
+        Update();
+        return this;
+
+    }
+
     public void AddBooking(Booking booking)
     {
         Bookings.Add(booking);
