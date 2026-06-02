@@ -12,8 +12,8 @@ public class Guest : BaseEntity
         ValidateNationalCode(NationalId);
     }
 
-    public string FullName { get; set; }
-    public string NationalId { get; set; }
+    public string FullName { get;private set; }
+    public string NationalId { get; private set; }
     public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     protected override void Validation()
@@ -32,6 +32,9 @@ public class Guest : BaseEntity
         if (!nationalCode.All(char.IsDigit))
             throw new InvalidOperationException("for thee national code all characters must be digit");
     }
-
+    public void AddBooking(Booking booking)
+    {
+        Bookings.Add(booking);
+    }
 
 }
