@@ -1,5 +1,7 @@
-﻿using HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Abstraction;
+using HotelManagementProject.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 namespace HotelManagementProject.DataAccess.AppDbContextFile;
 public class AppDbContext:DbContext
 {
@@ -14,7 +16,7 @@ public class AppDbContext:DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
     }
  
