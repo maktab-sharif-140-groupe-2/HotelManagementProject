@@ -1,4 +1,4 @@
-﻿using HotelManagementProject.Domain.Dtos;
+﻿using HotelManagementProject.Domain.Dtos.ServiceView;
 using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using HotelMangement_Service.Interfaces;
