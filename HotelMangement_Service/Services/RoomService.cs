@@ -18,7 +18,7 @@ public class RoomService : IRoomService
 
     public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
-        ValidateForCreate(roomNumber, pricePerNight, hotelId);
+        await ValidateForCreate(roomNumber, pricePerNight, hotelId);
 
         var room = new Room(roomNumber, pricePerNight, hotelId);
 

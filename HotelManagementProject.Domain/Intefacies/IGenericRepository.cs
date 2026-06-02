@@ -10,6 +10,14 @@ public interface IGenericRepository<T> where T : BaseEntity
     /// </summary>
     /// <returns></returns>
     Task<List<TResult>> QueryAsync<TResult>(Expression<Func<T, TResult>> selector, bool tracking = false);
+    /// <summary>
+    ///  بررسی موجودن بودن یک شرط
+    /// </summary>
+    /// <param name="selector"></param>
+    /// <param name="tracking"></param>
+    /// <returns></returns>
+    Task<bool> AnyAsync(Expression<Func<T, bool>> selector, bool tracking = false);
+
 
     /// <summary>
     /// دریافت یک موجدیت با ایدی 

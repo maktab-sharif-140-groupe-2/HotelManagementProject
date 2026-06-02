@@ -1,11 +1,6 @@
 ﻿using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using HotelMangement_Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelMangement_Service.Services
 {
@@ -20,7 +15,7 @@ namespace HotelMangement_Service.Services
             _roomRepository = roomRepository;
         }
 
-        public async Task<bool> CreateBooking(Guid roomId,DateOnly enteryDate ,int daysofStay)
+        public async Task<bool> CreateBooking(Guid roomId, DateOnly enteryDate, int daysofStay)
         {
             var room = await _roomRepository.GetByIdAsync(roomId);
             if (room == null)
@@ -31,19 +26,22 @@ namespace HotelMangement_Service.Services
                 throw new ArgumentException("days of stay can't be zero");
             if (daysofStay > 100)
                 throw new ArgumentException("days of stay can't be more than 100");
-            await CheckForConflictBooking(roomId,enteryDate,daysofStay);
-            var booking = new Booking(roomId,enteryDate, enteryDate.AddDays(daysofStay));
+            await CheckForConflictBooking(roomId, enteryDate, daysofStay);
+            var booking = new Booking(roomId, enteryDate, enteryDate.AddDays(daysofStay));
             return await _bookingRepository.AddAsync(booking);
         }
 
         private async Task<bool> CheckForConflictBooking(Guid roomId, DateOnly enteryDate, int daysofStay)
         {
-           var room= await _roomRepository.GetByIdAsync(roomId);
-            if (room.Bookings.Any(x => x.CheckIn <= enteryDate && x.CheckOut > enteryDate))
+            //AI
+            var checkOut = enteryDate.AddDays(daysofStay);
+            var hasConflict = await _bookingRepository.AnyAsync(x => x.RoomId == roomId &&
+            enteryDate < x.CheckOut &&
+                checkOut > x.CheckIn);
+            if (hasConflict)
                 throw new InvalidDataException("this time room is reserved");
-            if(room.Bookings.Any(x=> x.CheckIn< enteryDate.AddDays(daysofStay)))
-                throw new InvalidDataException("day ofStay can't be Apply(Room reserved)");
             return true;
+
         }
 
 
