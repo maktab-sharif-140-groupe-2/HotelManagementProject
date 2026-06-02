@@ -18,16 +18,14 @@ namespace HotelMangement_Service.Services
             var room = await _roomRepository.GetByIdAsync(roomId);
             if (room == null)
             {
-                throw new ArgumentNullException("RoomIdCant be null");
+                throw new ArgumentNullException("Not Exist this Room");
             }
             if (daysofStay == 0)
-                throw new ArgumentException("cant be zero or more than 100");
+                throw new ArgumentException("days of stay can't be zero");
             if (daysofStay <= 100)
-                throw new ArgumentException("cant be zero or more than 100");
-            var booking = new Booking(roomId, DateTime.Now, DateTime.Now.AddDays(daysofStay));
-
-            var result = await _bookingRepository.AddAsync(booking);
-            return result;
+                throw new ArgumentException("days of stay can't be more than 100");
+            var booking = new Booking(roomId,enteryDate, enteryDate.AddDays(daysofStay));
+            return await _bookingRepository.AddAsync(booking);
         }
     }
 }
