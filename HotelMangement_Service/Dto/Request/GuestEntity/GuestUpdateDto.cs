@@ -1,4 +1,4 @@
-﻿namespace HotelManagementProject.Domain.Dtos.Update;
+﻿namespace HotelMangement_Service.Dto.Request.GuestEntity;
 
 public class GuestUpdateDto
 {

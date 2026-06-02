@@ -16,7 +16,7 @@ public class Room : BaseEntity
     public decimal PricePerNight { get; private set; }
     public Guid HotelId { get; private set; }
     public Hotel Hotel { get; private set; }
-    public ICollection<Booking> Bookings { get; private set; }=new List<Booking>();
+    public ICollection<Booking> Bookings { get; private set; } = new List<Booking>();
 
     protected override void Validation()
     {

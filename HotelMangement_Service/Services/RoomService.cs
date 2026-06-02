@@ -1,6 +1,8 @@
 ﻿using HotelManagementProject.Domain.Dtos.ServiceView;
 using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
+using HotelMangement_Service.Dto.Request.RoomEntity;
+using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Interfaces;
 
 namespace HotelMangement_Service.Services;
@@ -56,7 +58,7 @@ public class RoomService : IRoomService
             HotelId = room.HotelId,
             PricePerNight = room.PricePerNight,
             RoomNumber = room.RoomNumber,
-        });
+        }, tracking);
     }
 
     public async Task<bool> SodtDeleteAsync(Guid roomId)
