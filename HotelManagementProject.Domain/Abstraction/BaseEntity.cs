@@ -3,9 +3,9 @@
 namespace HotelManagementProject.Domain.Abstraction;
 public abstract class BaseEntity
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid Id { get; private set; } 
     public bool IsDeleted { get; private set; }=false;
-    public DateTime CreatedAt { get; private set; }= DateTime.Now;
+    public DateTime CreatedAt { get; private set; }
     public DateTime? ModifiedAt { get; private set; }
     public BaseEntity Delete()
     {

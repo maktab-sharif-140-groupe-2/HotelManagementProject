@@ -14,6 +14,17 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.HasKey(b => b.Id);
+
+            builder.HasIndex(b => b.CreatedAt);
+
+            builder.Property(b => b.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            builder.Property(b => b.IsDeleted)
+                .IsRequired()
+                .HasDefaultValue(false);
+
             ConfigureEntity(builder);
         }
         protected abstract void ConfigureEntity(EntityTypeBuilder<TEntity> builder);
