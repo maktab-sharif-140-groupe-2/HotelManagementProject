@@ -18,6 +18,8 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
 
             builder.Property(b => b.CheckIn).IsRequired();
             builder.Property(b => b.CheckOut).IsRequired();
+
+            builder.HasIndex(x => new { x.RoomId, x.CheckIn, x.CheckOut });
             
             
 
