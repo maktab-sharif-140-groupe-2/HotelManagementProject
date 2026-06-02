@@ -20,7 +20,7 @@ namespace HotelMangement_Service.Services
             _roomRepository = roomRepository;
         }
 
-        public async Task<bool> CreateBooking(Guid roomId,DateTime enteryDate ,int daysofStay)
+        public async Task<bool> CreateBooking(Guid roomId,DateOnly enteryDate ,int daysofStay)
         {
             var room = await _roomRepository.GetByIdAsync(roomId);
             if (room == null)
@@ -29,10 +29,21 @@ namespace HotelMangement_Service.Services
             }
             if (daysofStay == 0)
                 throw new ArgumentException("days of stay can't be zero");
-            if (daysofStay <= 100)
+            if (daysofStay > 100)
                 throw new ArgumentException("days of stay can't be more than 100");
             var booking = new Booking(roomId,enteryDate, enteryDate.AddDays(daysofStay));
             return await _bookingRepository.AddAsync(booking);
         }
+
+        private async Task<bool> CheckForConflictBooking(Guid roomId, DateTime enteryDate, int daysofStay)
+        {
+           var room= await _roomRepository.GetByIdAsync(roomId);
+            if(room.Bookings.Any(x=> x.CheckIn==)) {
+
+
+        }
+
+
+
     }
 }
