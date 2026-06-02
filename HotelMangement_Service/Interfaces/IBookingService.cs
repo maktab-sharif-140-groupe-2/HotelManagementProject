@@ -5,6 +5,7 @@ namespace HotelMangement_Service.Interfaces
     public interface IBookingService
     {
         Task<bool> CreateBooking(int roomId,DateTime enteryDate,int daysofStay);
+         
 
     }
 }
