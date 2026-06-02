@@ -4,7 +4,7 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Booking : BaseEntity
 {
-    public Booking(Guid roomId, DateOnly checkIn, DateOnly checkOut)
+    public Booking(Guid roomId, DateTime checkIn, DateTime checkOut)
     {
         RoomId = roomId;
         CheckIn = checkIn;
@@ -13,8 +13,8 @@ public class Booking : BaseEntity
     }
     
     public Guid RoomId { get; private set; }
-    public DateOnly CheckIn { get; private set; }
-    public DateOnly CheckOut { get; private set; }
+    public DateTime CheckIn { get; private set; }
+    public DateTime CheckOut { get; private set; }
     public Guest Guest { get; private set; }
     public Room Room { get; private set; }
 

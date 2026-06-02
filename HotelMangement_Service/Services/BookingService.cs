@@ -22,7 +22,7 @@ public class BookingService : IBookingService
         return true;
     }
 
-    public async Task<bool> CreateBooking(Guid roomId, DateOnly enteryDate, int daysofStay)
+    public async Task<bool> CreateBooking(Guid roomId, DateTime enteryDate, int daysofStay)
     {
         var room = await _roomRepository.GetByIdAsync(roomId);
         if (room == null)

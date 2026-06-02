@@ -79,6 +79,8 @@ public class RoomService : IRoomService
         return true;
     }
 
+   
+
     private async Task ValidateForCreate(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
         var hotel= await _hotelRepository.GetByIdAsync(hotelId);
