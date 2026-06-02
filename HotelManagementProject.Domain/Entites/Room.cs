@@ -26,9 +26,10 @@ public class Room : BaseEntity
             throw new InvalidDataException("Price can't be negative");
     }
 
-    public void UpdatePricePerNight(decimal pricePerNight)
+    public void UpdateInfo(decimal pricePerNight, int hotelId)
     {
         PricePerNight = pricePerNight;
+        HotelId = hotelId;
     }
 
     public void AddBooking(Booking booking)

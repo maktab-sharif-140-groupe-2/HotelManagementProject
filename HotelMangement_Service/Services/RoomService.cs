@@ -1,6 +1,7 @@
-﻿using HotelManagementProject.Domain.Dtos;
-using HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
+using HotelMangement_Service.Dto.Request.RoomEntity;
+using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Interfaces;
 
 namespace HotelMangement_Service.Services;
@@ -16,8 +17,6 @@ public class RoomService : IRoomService
 
     public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, int hotelId)
     {
-        ValidateForCreate(roomNumber, pricePerNight, hotelId);
-
         var room = new Room(roomNumber, pricePerNight, hotelId);
 
         return await _roomRepository.AddAsync(room);
@@ -35,21 +34,6 @@ public class RoomService : IRoomService
         };
     }
 
-    public async Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber, bool tracking = false)
-    {
-        if (roomNumber < 0)
-            throw new InvalidOperationException("invalid roomNumber! the room number input cannot be negative");
-
-        var room = await _roomRepository.GetRoomByRoomNumberAsync(roomNumber, tracking);
-
-        return room is null ? null : new RoomDto
-        {
-            HotelId = room.HotelId,
-            PricePerNight = room.PricePerNight,
-            RoomNumber = room.RoomNumber,
-        };
-    }
-
     public async Task<List<RoomDto>> GetRoomsAsync(bool tracking = false)
     {
         return await _roomRepository.QueryAsync(room => new RoomDto
@@ -60,24 +44,19 @@ public class RoomService : IRoomService
         }, tracking);
     }
 
-    public Task<bool> SodtDeleteAsync(int roomId)
+    public Task<bool> SoftDeleteAsync(int roomId)
     {
-        if (roomId < 0)
-            throw new InvalidOperationException("invalid roomId! the room number input cannot be negative");
-
         return _roomRepository.SoftDeleteAsync(roomId);
     }
 
-    public async Task<bool> UpdatePricePerNightAsync(int roomId, decimal pricePerNight)
+    public async Task<bool> UpdateRoomAsync(RoomUpdateDTO roomUpdateDTO)
     {
-        ValidateForUpdate(pricePerNight, roomId);
-
-        var room = await _roomRepository.GetByIdAsync(roomId, true);
+        var room = await _roomRepository.GetByIdAsync(roomUpdateDTO.RoomId, true);
 
         if (room == null)
             return false;
 
-        room.UpdatePricePerNight(pricePerNight);
+        room.UpdateInfo(roomUpdateDTO.PricePerNight, roomUpdateDTO.HotelId);
 
         return await _roomRepository.UpdateAsync(room);
     }
@@ -92,8 +71,10 @@ public class RoomService : IRoomService
             throw new InvalidOperationException("invalid hotelId! the hotelId cannot be negative");
     }
 
-    private void ValidateForUpdate(decimal pricePerNight, int hotelId)
+    private void ValidateForUpdate(int roomId, decimal pricePerNight, int hotelId)
     {
+        if (roomId < 0)
+            throw new InvalidOperationException("invalid roomId! the room Number cannot be negative");
         if (pricePerNight < 0)
             throw new InvalidOperationException("invalid pricePerNight! the pricePerNight cannot be negative");
         if (hotelId < 0)

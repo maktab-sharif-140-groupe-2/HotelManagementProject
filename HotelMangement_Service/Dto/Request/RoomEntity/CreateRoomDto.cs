@@ -1,6 +1,6 @@
-﻿namespace HotelManagementProject.Domain.Dtos;
+﻿namespace HotelMangement_Service.Dto.Request.RoomEntity;
 
-public class RoomDto
+public class CreateRoomDto
 {
     public int RoomNumber { get; set; }
     public decimal PricePerNight { get; set; }

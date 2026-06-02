@@ -3,7 +3,7 @@
 namespace HotelManagementProject.Domain.Abstraction;
 public abstract class BaseEntity
 {
-    public Guid Id { get; private set; } 
+    public int Id { get; private set; } 
     public bool IsDeleted { get; private set; }=false;
     public DateTime CreatedAt { get; private set; }
     public DateTime? ModifiedAt { get; private set; }

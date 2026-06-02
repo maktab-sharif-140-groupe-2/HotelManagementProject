@@ -12,14 +12,4 @@ public class RoomRepository : GenericRepository<Room>, IRoomRepository
     public RoomRepository(AppDbContext dbContext) : base(dbContext)
     {
     }
-
-    public async Task<Room?> GetRoomByRoomNumberAsync(int roomNumber, bool tracking = false)
-    {
-        var query = Entities.AsQueryable();
-
-        if (!tracking)
-            query = query.AsNoTracking();
-
-        return await query.FirstOrDefaultAsync(r =>  r.RoomNumber == roomNumber);
-    }
 }

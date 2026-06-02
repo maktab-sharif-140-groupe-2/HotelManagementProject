@@ -1,4 +1,7 @@
-﻿using HotelManagementProject.Domain.Dtos;
+﻿
+
+using HotelMangement_Service.Dto.Request.RoomEntity;
+using HotelMangement_Service.Dto.Response.RoomEntity;
 
 namespace HotelMangement_Service.Interfaces;
 
@@ -8,12 +11,10 @@ public interface IRoomService
 
     Task<List<RoomDto>> GetRoomsAsync(bool tracking = false);
 
-    Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber, bool tracking = false);
-
     Task<RoomDto?> GetRoomByIdAsync(int roomId, bool tracking = false);
 
-    Task<bool> SodtDeleteAsync(int roomId);
+    Task<bool> SoftDeleteAsync(int roomId);
 
-    Task<bool> UpdatePricePerNightAsync(int roomId, decimal pricePerNight);
+    Task<bool> UpdateRoomAsync(RoomUpdateDTO roomUpdateDTO);
 
 }
