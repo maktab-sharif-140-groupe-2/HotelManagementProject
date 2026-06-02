@@ -3,5 +3,5 @@
 namespace HotelManagementProject.Domain.Intefacies;
 public interface IRoomRepository : IGenericRepository<Room>
 {
-    Task<Room?> GetRoomByRoomNumberAsync(int roomNumber);
+    Task<Room?> GetRoomByRoomNumberAsync(int roomNumber, bool tracking = false);
 }

@@ -16,7 +16,7 @@ public class Room : BaseEntity
     public decimal PricePerNight { get; private set; }
     public int HotelId { get; private set; }
     public Hotel Hotel { get; private set; }
-    public ICollection<Booking> Bookings { get; private set; }=new List<Booking>();
+    public ICollection<Booking> Bookings { get; private set; } = new List<Booking>();
 
     protected override void Validation()
     {
@@ -25,6 +25,12 @@ public class Room : BaseEntity
         if (PricePerNight < 0)
             throw new InvalidDataException("Price can't be negative");
     }
+
+    public void UpdatePricePerNight(decimal pricePerNight)
+    {
+        PricePerNight = pricePerNight;
+    }
+
     public void AddBooking(Booking booking)
     {
         Bookings.Add(booking);
