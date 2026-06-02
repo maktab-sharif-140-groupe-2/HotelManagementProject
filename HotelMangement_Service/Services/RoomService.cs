@@ -8,10 +8,12 @@ namespace HotelMangement_Service.Services;
 public class RoomService : IRoomService
 {
     private readonly IRoomRepository _roomRepository;
+    private readonly IHotelRepository _hotelRepository;
 
-    public RoomService(IRoomRepository roomRepository)
+    public RoomService(IRoomRepository roomRepository, IHotelRepository hotelRepository)
     {
         _roomRepository = roomRepository;
+        _hotelRepository = hotelRepository;
     }
 
     public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, int hotelId)
@@ -35,17 +37,17 @@ public class RoomService : IRoomService
         };
     }
 
-    public async Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber)
-    {
-        var room = await _roomRepository.GetRoomByRoomNumberAsync(roomNumber);
+    //public async Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber)
+    //{
+    //    var room = await _roomRepository.GetRoomByRoomNumberAsync(roomNumber);
 
-        return room is null ? null : new RoomDto
-        {
-            HotelId = room.HotelId,
-            PricePerNight = room.PricePerNight,
-            RoomNumber = room.RoomNumber,
-        };
-    }
+    //    return room is null ? null : new RoomDto
+    //    {
+    //        HotelId = room.HotelId,
+    //        PricePerNight = room.PricePerNight,
+    //        RoomNumber = room.RoomNumber,
+    //    };
+    //}
 
     public async Task<List<RoomDto>> GetRoomsAsync()
     {
@@ -67,13 +69,16 @@ public class RoomService : IRoomService
         throw new NotImplementedException();
     }
 
-    private void ValidateForCreate(int roomNumber, decimal pricePerNight, int hotelId)
+    private async Task ValidateForCreate(int roomNumber, decimal pricePerNight, int hotelId)
     {
+        if (hotelId < 0)
+            throw new InvalidOperationException("invalid room Number! the hotelId cannot be negative");
+        var hotel= await _hotelRepository.GetByIdAsync(hotelId);
+        if (hotel is null)
+            throw new InvalidDataException("This hotel not exsit");
         if (roomNumber < 0)
             throw new InvalidOperationException("invalid room Number! the room Number cannot be negative");
         if (pricePerNight < 0)
             throw new InvalidOperationException("invalid room Number! the pricePerNight cannot be negative");
-        if (hotelId < 0)
-            throw new InvalidOperationException("invalid room Number! the hotelId cannot be negative");
     }
 }

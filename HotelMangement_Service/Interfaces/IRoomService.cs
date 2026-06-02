@@ -8,7 +8,7 @@ public interface IRoomService
 
     Task<List<RoomDto>> GetRoomsAsync();
 
-    Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber);
+    //Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber);
 
     Task<RoomDto?> GetRoomByIdAsync(int roomId,bool tracking);
 
