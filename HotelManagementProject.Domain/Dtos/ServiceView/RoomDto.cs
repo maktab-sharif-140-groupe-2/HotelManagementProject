@@ -1,4 +1,4 @@
-﻿namespace HotelMangement_Service.Dto.Response.RoomEntity;
+﻿namespace HotelManagementProject.Domain.Dtos.ServiceView;
 
 public class RoomDto
 {

@@ -16,8 +16,10 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
             builder.HasOne(b => b.Room).WithMany(r => r.Bookings).HasForeignKey(r => r.RoomId).OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(b => b.Guest).WithMany(g => g.Bookings).HasForeignKey(b => b.Guest.Id).OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(b => b.CheckIn).HasColumnType("DATETIME2").IsRequired();
-            builder.Property(b => b.CheckOut).HasColumnType("DATETIME2").IsRequired();
+            builder.Property(b => b.CheckIn).IsRequired();
+            builder.Property(b => b.CheckOut).IsRequired();
+
+            builder.HasIndex(x => new { x.RoomId, x.CheckIn, x.CheckOut });
             
             
 
