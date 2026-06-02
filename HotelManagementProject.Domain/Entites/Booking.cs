@@ -9,7 +9,6 @@ public class Booking : BaseEntity
         RoomId = roomId;
         CheckIn = checkIn;
         CheckOut = checkOut;
-        
         Validation();
     }
     

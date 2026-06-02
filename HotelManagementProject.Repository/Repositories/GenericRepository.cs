@@ -34,6 +34,15 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
         return await query.Select(selector).ToListAsync();
     }
+    public async Task<bool> AnyAsync(Expression<Func<T, bool>> selector, bool tracking = false)
+    {
+        var query = Entities.AsQueryable();
+
+        if (!tracking)
+            query = query.AsNoTracking();
+
+        return await query.AnyAsync(selector);
+    }
 
     public async Task<T?> GetByIdAsync(Guid id, bool tracking = false)
     {

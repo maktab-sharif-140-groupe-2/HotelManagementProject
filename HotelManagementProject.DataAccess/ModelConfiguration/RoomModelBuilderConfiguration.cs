@@ -15,10 +15,9 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
         {
             builder.Property(r => r.PricePerNight).HasColumnType("DECIMAL").IsRequired();
             builder.Property(r => r.RoomNumber).HasColumnType("INTEGER").IsRequired();
-            builder.HasIndex(r => r.RoomNumber).IsUnique();
+            builder.HasIndex(r => r.RoomNumber);
 
 
-            builder.HasOne(r=>r.Hotel).WithMany(r => r.Rooms).HasForeignKey(r=>r.HotelId);
             builder.HasOne(r=>r.Hotel).WithMany(h=> h.Rooms).HasForeignKey(r=> r.HotelId).OnDelete(DeleteBehavior.Cascade);
         }
     }

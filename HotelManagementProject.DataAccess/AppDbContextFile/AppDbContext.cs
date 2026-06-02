@@ -1,4 +1,5 @@
-﻿using HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Abstraction;
+using HotelManagementProject.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 namespace HotelManagementProject.DataAccess.AppDbContextFile;
