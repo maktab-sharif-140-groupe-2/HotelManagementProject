@@ -59,14 +59,22 @@ public class RoomService : IRoomService
         });
     }
 
-    public Task<bool> SodtDeleteAsync(Guid roomId)
+    public async Task<bool> SodtDeleteAsync(Guid roomId)
     {
-
+        var room= await _roomRepository.GetByIdAsync(roomId);
+        if (room == null)
+            throw new InvalidDataException("this room not exist");
+        room.Delete();
+        return true;
     }
 
-    public Task<bool> UpdatePricePerNightAsync(decimal pricePerNight)
+    public async Task<bool> UpdatePricePerNightAsync(Guid roomId, decimal pricePerNight)
     {
-        throw new NotImplementedException();
+        var room = await _roomRepository.GetByIdAsync(roomId);
+        if (room == null)
+            throw new InvalidDataException("this room not exist");
+        room.UpdatePrice(pricePerNight);
+        return true;
     }
 
     private async Task ValidateForCreate(int roomNumber, decimal pricePerNight, Guid hotelId)

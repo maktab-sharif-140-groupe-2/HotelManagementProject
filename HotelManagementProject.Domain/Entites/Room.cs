@@ -25,6 +25,15 @@ public class Room : BaseEntity
         if (PricePerNight < 0)
             throw new InvalidDataException("Price can't be negative");
     }
+
+    public Room UpdatePrice(decimal newPrice)
+    {
+        PricePerNight=newPrice;
+        Update();
+        return this;
+
+    }
+
     public void AddBooking(Booking booking)
     {
         Bookings.Add(booking);

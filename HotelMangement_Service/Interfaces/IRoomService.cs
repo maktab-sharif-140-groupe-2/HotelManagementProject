@@ -14,6 +14,6 @@ public interface IRoomService
 
     Task<bool> SodtDeleteAsync(Guid roomId);
 
-    Task<bool> UpdatePricePerNightAsync(decimal pricePerNight);
+    Task<bool> UpdatePricePerNightAsync(Guid roomId, decimal pricePerNight);
 
 }
