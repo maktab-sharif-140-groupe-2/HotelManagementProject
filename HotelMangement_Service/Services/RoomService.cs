@@ -16,7 +16,7 @@ public class RoomService : IRoomService
         _hotelRepository = hotelRepository;
     }
 
-    public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, int hotelId)
+    public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
         ValidateForCreate(roomNumber, pricePerNight, hotelId);
 
@@ -25,7 +25,7 @@ public class RoomService : IRoomService
         return await _roomRepository.AddAsync(room);
     }
 
-    public async Task<RoomDto?> GetRoomByIdAsync(int roomId, bool tracking)
+    public async Task<RoomDto?> GetRoomByIdAsync(Guid roomId, bool tracking)
     {
         var room = await _roomRepository.GetByIdAsync(roomId, tracking);
 
@@ -59,9 +59,9 @@ public class RoomService : IRoomService
         });
     }
 
-    public Task<bool> SodtDeleteAsync(int roomId)
+    public Task<bool> SodtDeleteAsync(Guid roomId)
     {
-        throw new NotImplementedException();
+
     }
 
     public Task<bool> UpdatePricePerNightAsync(decimal pricePerNight)
@@ -69,10 +69,8 @@ public class RoomService : IRoomService
         throw new NotImplementedException();
     }
 
-    private async Task ValidateForCreate(int roomNumber, decimal pricePerNight, int hotelId)
+    private async Task ValidateForCreate(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
-        if (hotelId < 0)
-            throw new InvalidOperationException("invalid room Number! the hotelId cannot be negative");
         var hotel= await _hotelRepository.GetByIdAsync(hotelId);
         if (hotel is null)
             throw new InvalidDataException("This hotel not exsit");
