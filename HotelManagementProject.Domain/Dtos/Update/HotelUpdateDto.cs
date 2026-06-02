@@ -1,4 +1,4 @@
-﻿namespace HotelManagementProject.Domain.Dtos;
+﻿namespace HotelManagementProject.Domain.Dtos.Update;
 public class HotelUpdateDto
 {
     public string Name { get; set; }

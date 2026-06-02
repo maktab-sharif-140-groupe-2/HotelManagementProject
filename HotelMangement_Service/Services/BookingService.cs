@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelMangement_Service.BookingServices
+namespace HotelMangement_Service.Services
 {
     public class BookingService : IBookingService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelManagementProject.Domain
+namespace HotelManagementProject.Domain.Dtos.Update
 {
     public class RoomUpdateDTO
     {
