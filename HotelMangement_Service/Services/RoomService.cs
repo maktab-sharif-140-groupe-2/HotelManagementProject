@@ -61,7 +61,9 @@ public class RoomService : IRoomService
         return await _roomRepository.UpdateAsync(room);
     }
 
-    private void ValidateForCreate(int roomNumber, decimal pricePerNight, int hotelId)
+   
+
+    private async Task ValidateForCreate(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
         if (roomNumber < 0)
             throw new InvalidOperationException("invalid room Number! the room Number cannot be negative");

@@ -1,7 +1,7 @@
 ﻿
 
 using HotelManagementProject.DataAccess.AppDbContextFile;
-using HotelManagementProject.Domain.Dtos;
+
 using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using Microsoft.EntityFrameworkCore;

@@ -2,9 +2,9 @@
 
 public class RoomUpdateDTO
 {
-    public int RoomId { get; set; }
+    public Guid RoomId { get; set; }
 
     public decimal PricePerNight { get; set; }
 
-    public int HotelId { get; set; }
+    public Guid HotelId { get; set; }
 }
