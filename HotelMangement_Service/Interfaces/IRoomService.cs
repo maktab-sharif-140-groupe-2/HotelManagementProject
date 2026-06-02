@@ -10,7 +10,7 @@ public interface IRoomService
 
     Task<RoomDto?> GetRoomByRoomNumberAsync(int roomNumber);
 
-    Task<RoomDto?> GetRoomByIdAsync(int roomId);
+    Task<RoomDto?> GetRoomByIdAsync(int roomId,bool tracking);
 
     Task<bool> SodtDeleteAsync(int roomId);
 
