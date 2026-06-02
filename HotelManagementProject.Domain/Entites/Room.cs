@@ -4,7 +4,7 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Room : BaseEntity
 {
-    public string RoomNumber { get; set; }
+    public int RoomNumber { get; set; }
     public decimal PricePerNight { get; set; }
     public int HotelId { get; set; }
     public Hotel Hotel { get; set; }
@@ -12,6 +12,6 @@ public class Room : BaseEntity
 
     protected override void Validation()
     {
-        throw new NotImplementedException();
+        
     }
 }
