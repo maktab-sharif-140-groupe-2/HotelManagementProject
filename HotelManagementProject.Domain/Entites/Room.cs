@@ -28,9 +28,8 @@ public class Room : BaseEntity
 
     public void UpdateInfo(decimal pricePerNight, Guid hotelId)
     {
-        PricePerNight=newPrice;
+        PricePerNight= pricePerNight;
         Update();
-        return this;
 
     }
 
