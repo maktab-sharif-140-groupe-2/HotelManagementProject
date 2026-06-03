@@ -1,5 +1,4 @@
-﻿using HotelManagementProject.Domain.Entites;
-using HotelMangement_Service.Dto.Request.RoomEntity;
+﻿using HotelMangement_Service.Dto.Request.RoomEntity;
 using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;

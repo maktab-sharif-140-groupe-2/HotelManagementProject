@@ -38,7 +38,7 @@ public class BookingService : IBookingService
         return await _bookingRepository.AddAsync(booking);
     }
 
-    private async Task<bool> CheckForConflictBooking(Guid roomId, DateOnly enteryDate, int daysofStay)
+    private async Task<bool> CheckForConflictBooking(Guid roomId, DateTime enteryDate, int daysofStay)
     {
         //AI :)
         var checkOut = enteryDate.AddDays(daysofStay);
