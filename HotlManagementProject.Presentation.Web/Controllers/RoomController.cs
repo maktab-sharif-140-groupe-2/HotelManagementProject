@@ -20,8 +20,8 @@ public class RoomController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<RoomDto>>> GetRoomsAsync() => Ok(await _roomService.GetRoomsAsync());
 
-    [HttpGet("{roomId:int}")]
-    public async Task<ActionResult<RoomDto>> GetRoomByIdAsync([FromRoute] int roomId)
+    [HttpGet("{roomId:Guid}")]
+    public async Task<ActionResult<RoomDto>> GetRoomByIdAsync([FromRoute] Guid roomId)
     {
         var room = await _roomService.GetRoomByIdAsync(roomId);
 
@@ -34,9 +34,6 @@ public class RoomController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateRoomAsync([FromBody] CreateRoomDto createRoomDto)
     {
-        if (createRoomDto.RoomNumber < 0 || createRoomDto.PricePerNight < 0 || createRoomDto.HotelId < 0)
-            return BadRequest("roomId or PricePerNight or HotelId is Invalid! input cannot be negative");
-
         var result = await _roomService.AddRoomAsync(createRoomDto.RoomNumber, createRoomDto.PricePerNight, createRoomDto.HotelId);
 
         if (!result)
@@ -45,11 +42,9 @@ public class RoomController : ControllerBase
         return CreatedAtAction(nameof(GetRoomByIdAsync), new { Id = createRoomDto.RoomNumber }, createRoomDto);
     }
 
-    [HttpDelete("{roomId:int}")]
-    public async Task<IActionResult> SoftDeleteRoomAsync([FromRoute] int roomId)
+    [HttpDelete("{roomId:Guid}")]
+    public async Task<IActionResult> SoftDeleteRoomAsync([FromRoute] Guid roomId)
     {
-        if (roomId < 0)
-            BadRequest("invalid roomId! the room number input cannot be negative");
 
         var result = await _roomService.SoftDeleteAsync(roomId);
 
@@ -62,8 +57,6 @@ public class RoomController : ControllerBase
     [HttpPatch]
     public async Task<IActionResult> UpdateRoomAsync([FromBody] RoomUpdateDTO roomUpdateDTO)
     {
-        if (roomUpdateDTO.RoomId < 0 || roomUpdateDTO.PricePerNight < 0 || roomUpdateDTO.HotelId < 0)
-            return BadRequest("roomId or PricePerNight or HotelId is Invalid! input cannot be negative");
 
         var result = await _roomService.UpdateRoomAsync(roomUpdateDTO);
 

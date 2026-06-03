@@ -6,5 +6,4 @@ public class RoomUpdateDTO
 
     public decimal PricePerNight { get; set; }
 
-    public Guid HotelId { get; set; }
 }
