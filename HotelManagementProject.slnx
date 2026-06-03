@@ -6,12 +6,12 @@
     <Project Path="HotelManagementProject.DataAccess/HotelManagementProject.DataAccess.csproj" />
     <Project Path="HotelManagementProject.Repository/HotelManagementProject.Repository.csproj" />
   </Folder>
-  <Folder Name="/Presntation2/">
-    <Project Path="HotlManagementProject.Presentation.Web/HotlManagementProject.Presentation.Web.csproj" Id="9a377b1e-7d20-4e4e-a45e-c650a82ee88c" />
-  </Folder>
-  <Folder Name="/Services/">
+  <Folder Name="/3-Services/">
     <Project Path="HotelMangement_Service/HotelMangement_Service.csproj" Id="fe2bcc75-9a47-4db8-bf40-eda68fd599e7">
       <Build Solution="Debug|*" Project="false" />
     </Project>
+  </Folder>
+  <Folder Name="/4-Presntation/">
+    <Project Path="HotlManagementProject.Presentation.Web/HotlManagementProject.Presentation.Web.csproj" Id="9a377b1e-7d20-4e4e-a45e-c650a82ee88c" />
   </Folder>
 </Solution>
