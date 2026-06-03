@@ -36,9 +36,10 @@ public class RoomController : ControllerBase
         var result = await _roomService.AddRoomAsync(createRoomDto.RoomNumber, createRoomDto.PricePerNight, createRoomDto.HotelId);
 
         if (!result)
-            return BadRequest();
+            return BadRequest("something was wrong");
 
-        return CreatedAtAction(nameof(GetRoomByIdAsync), new { Id = createRoomDto.RoomNumber }, createRoomDto);
+        //return CreatedAtAction(nameof(GetRoomByIdAsync), new { Id = createRoomDto.RoomNumber }, createRoomDto);
+        return Created();
     }
 
     [HttpDelete("{roomId:Guid}")]

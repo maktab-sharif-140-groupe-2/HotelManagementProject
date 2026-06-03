@@ -4,10 +4,7 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Booking : BaseEntity
 {
-    private Booking()
-    {
-        
-    }
+  
     public Booking(Guid roomId, DateTime checkIn, DateTime checkOut, Guid guestId)
     {
         RoomId = roomId;
