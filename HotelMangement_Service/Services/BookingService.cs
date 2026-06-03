@@ -22,7 +22,7 @@ public class BookingService : IBookingService
         return true;
     }
 
-    public async Task<bool> CreateBooking(Guid roomId, DateTime enteryDate, int daysofStay)
+    public async Task<bool> CreateBooking(Guid roomId, Guid guestId, DateTime enteryDate, int daysofStay)
     {
         var room = await _roomRepository.GetByIdAsync(roomId);
         if (room == null)
@@ -34,7 +34,7 @@ public class BookingService : IBookingService
         if (daysofStay > 100)
             throw new ArgumentException("days of stay can't be more than 100");
         await CheckForConflictBooking(roomId, enteryDate, daysofStay);
-        var booking = new Booking(roomId, enteryDate, enteryDate.AddDays(daysofStay));
+        var booking = new Booking(roomId, enteryDate, enteryDate.AddDays(daysofStay),guestId);
         return await _bookingRepository.AddAsync(booking);
     }
 

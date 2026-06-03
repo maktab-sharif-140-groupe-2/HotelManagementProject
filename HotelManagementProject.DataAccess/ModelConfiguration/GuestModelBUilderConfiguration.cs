@@ -15,7 +15,6 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
         {
             builder.Property(g => g.FullName).HasColumnType("NVARCHAR").HasMaxLength(50).IsRequired();
             builder.Property(g => g.NationalId).HasColumnType("NVARCHAR").HasMaxLength(10).IsRequired();
-            builder.Property(g => g.ModifiedAt).HasColumnType("DATETIME2");
             
             
             builder.HasIndex(g => g.NationalId).IsUnique();

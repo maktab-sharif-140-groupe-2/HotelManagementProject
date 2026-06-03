@@ -4,6 +4,10 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Room : BaseEntity
 {
+    private Room()
+    {
+        
+    }
     public Room(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
         RoomNumber = roomNumber;

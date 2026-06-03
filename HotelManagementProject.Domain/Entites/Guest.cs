@@ -4,6 +4,10 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Guest : BaseEntity
 {
+    private Guest()
+    {
+        
+    }
     public Guest(string fullName, string nationalId)
     {
         FullName = fullName;

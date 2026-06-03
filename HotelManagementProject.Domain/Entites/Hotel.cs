@@ -4,6 +4,10 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Hotel : BaseEntity
 {
+    private Hotel()
+    {
+        
+    }
     public Hotel(string name, string city)
     {
         Name = name;
