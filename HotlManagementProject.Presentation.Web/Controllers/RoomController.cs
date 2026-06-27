@@ -1,6 +1,7 @@
 ﻿using HotelMangement_Service.Dto.Request.RoomEntity;
 using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Interfaces;
+using HotlManagementProject.Presentation.Web.ResultPatterns;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotlManagementProject.Presentation.Web.Controllers;
@@ -17,52 +18,53 @@ public class RoomController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<RoomDto>>> GetRoomsAsync() => Ok(await _roomService.GetRoomsAsync());
+    public async Task<ActionResult<List<RoomDto>>> GetRoomsAsync()
+    {
+        var rooms = await _roomService.GetRoomsAsync();
 
-    [HttpGet("{roomId:Guid}")]
+        return Ok(GenericResult<List<RoomDto>>.Success(
+            rooms,
+            "Rooms retrieved successfully."
+            ));
+    }
+
+[HttpGet("{roomId:Guid}")]
     public async Task<ActionResult<RoomDto>> GetRoomByIdAsync([FromRoute] Guid roomId)
     {
         var room = await _roomService.GetRoomByIdAsync(roomId);
 
-        if (room == null)
-            NotFound($"room with this id {roomId} not found!");
-
-        return Ok(room);
+        return Ok(GenericResult<RoomDto>.Success(
+            room,
+            "Room retrieved successfully."
+        ));
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateRoomAsync([FromBody] CreateRoomDto createRoomDto)
     {
-        var result = await _roomService.AddRoomAsync(createRoomDto.RoomNumber, createRoomDto.PricePerNight, createRoomDto.HotelId);
+        await _roomService.AddRoomAsync(
+            createRoomDto.RoomNumber,
+            createRoomDto.PricePerNight,
+            createRoomDto.HotelId);
 
-        if (!result)
-            return BadRequest("something was wrong");
-
-        //return CreatedAtAction(nameof(GetRoomByIdAsync), new { Id = createRoomDto.RoomNumber }, createRoomDto);
-        return Created();
+        return Ok(Result.Success("Room created successfully."));
     }
 
     [HttpDelete("{roomId:Guid}")]
     public async Task<IActionResult> SoftDeleteRoomAsync([FromRoute] Guid roomId)
     {
 
-        var result = await _roomService.SoftDeleteAsync(roomId);
+        await _roomService.SoftDeleteAsync(roomId);
 
-        if (!result)
-            return NotFound($"room with this roomId {roomId} not found!");
-
-        return NoContent();
+        return Ok(Result.Success("Room deleted successfully."));
     }
 
     [HttpPatch]
     public async Task<IActionResult> UpdateRoomAsync([FromBody] RoomUpdateDTO roomUpdateDTO)
     {
 
-        var result = await _roomService.UpdateRoomAsync(roomUpdateDTO);
+        await _roomService.UpdateRoomAsync(roomUpdateDTO);
 
-        if(!result)
-            return NotFound($"room with this id {roomUpdateDTO.RoomId} not found!");
-
-        return NoContent();
+        return Ok(Result.Success("Room updated successfully."));
     }
 }
