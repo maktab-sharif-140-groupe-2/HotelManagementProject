@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HotelManagementProject.Domain.Abstraction;
+namespace HotelManagementProject.Domain.Entites;
 public abstract class BaseEntity
 {
     public Guid Id { get; private set; } 

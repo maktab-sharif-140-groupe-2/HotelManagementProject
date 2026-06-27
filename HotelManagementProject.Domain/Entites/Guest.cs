@@ -1,10 +1,7 @@
-﻿using HotelManagementProject.Domain.Abstraction;
-
-namespace HotelManagementProject.Domain.Entites;
+﻿namespace HotelManagementProject.Domain.Entites;
 
 public class Guest : BaseEntity
 {
-  
     public Guest(string fullName, string nationalId)
     {
         FullName = fullName;

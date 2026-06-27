@@ -1,5 +1,5 @@
 ﻿using HotelManagementProject.DataAccess.AppDbContextFile;
-using HotelManagementProject.Domain.Abstraction;
+using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;

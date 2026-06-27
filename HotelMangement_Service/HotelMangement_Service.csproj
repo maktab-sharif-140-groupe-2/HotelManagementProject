@@ -10,4 +10,10 @@
     <ProjectReference Include="..\HotelManagementProject.Domain\HotelManagementProject.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+
 </Project>
