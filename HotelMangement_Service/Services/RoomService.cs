@@ -2,6 +2,8 @@
 using HotelManagementProject.Domain.Intefacies;
 using HotelMangement_Service.Dto.Request.RoomEntity;
 using HotelMangement_Service.Dto.Response.RoomEntity;
+using HotelMangement_Service.Errors;
+using HotelMangement_Service.Exceptions;
 using HotelMangement_Service.Interfaces;
 
 namespace HotelMangement_Service.Services;
@@ -17,7 +19,6 @@ public class RoomService : IRoomService
 
     public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
-        ValidatePrice( pricePerNight);
         var room = new Room(roomNumber, pricePerNight, hotelId);
 
         return await _roomRepository.AddAsync(room);
@@ -26,7 +27,8 @@ public class RoomService : IRoomService
     public async Task<RoomDto?> GetRoomByIdAsync(Guid roomId, bool tracking = false)
     {
         var room = await _roomRepository.GetByIdAsync(roomId, tracking);
-
+        if (room == null)
+            throw new NotFoundException(ApplicationErrors.NotExsitingError("room"));
         return new RoomDto
         {
             HotelId = room.HotelId,
@@ -45,9 +47,13 @@ public class RoomService : IRoomService
         }, tracking);
     }
 
-    public Task<bool> SoftDeleteAsync(Guid roomId)
+    public async Task<bool> SoftDeleteAsync(Guid roomId)
     {
-        return _roomRepository.SoftDeleteAsync(roomId);
+        var exist=await _roomRepository.AnyAsync(x=> x.Id==roomId);
+        if(!exist)
+            throw new NotFoundException(ApplicationErrors.NotExsitingError("room"));
+
+        return await _roomRepository.SoftDeleteAsync(roomId);
     }
 
     public async Task<bool> UpdateRoomAsync(RoomUpdateDTO roomUpdateDTO)
@@ -55,17 +61,10 @@ public class RoomService : IRoomService
         var room = await _roomRepository.GetByIdAsync(roomUpdateDTO.RoomId, true);
 
         if (room == null)
-            return false;
+            throw new NotFoundException(ApplicationErrors.NotExsitingError("room"));
 
-        ValidatePrice(roomUpdateDTO.PricePerNight);
-        room.UpdateInfo(roomUpdateDTO.PricePerNight);
-
-        return await _roomRepository.UpdateAsync(room);
+        return await _roomRepository.UpdateRoomPriceAsync(room,roomUpdateDTO.PricePerNight);
     }
 
-    private void ValidatePrice(decimal pricePerNight)
-    {
-        if (pricePerNight < 0)
-            throw new InvalidOperationException("invalid pricePerNight! the pricePerNight cannot be negative");
-    }
+ 
 }
