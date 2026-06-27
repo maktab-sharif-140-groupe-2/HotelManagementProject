@@ -4,17 +4,25 @@ namespace HotelManagementProject.Domain.Entites;
 
 public class Guest : BaseEntity
 {
-  
-    public Guest(string fullName, string nationalId)
+
+    public Guest(string fullName, string nationalId, string passwordHash, string userName)
     {
         FullName = fullName;
         NationalId = nationalId;
+        PasswordHash = passwordHash;
+        UserName = userName;
         Validation();
         ValidateNationalCode(NationalId);
     }
 
     public string FullName { get;private set; }
+
     public string NationalId { get; private set; }
+
+    public string PasswordHash { get; private set; }
+
+    public string UserName { get; private set; }
+
     public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     protected override void Validation()
