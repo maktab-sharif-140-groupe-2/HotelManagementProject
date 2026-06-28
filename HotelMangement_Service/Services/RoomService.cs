@@ -5,6 +5,7 @@ using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Errors;
 using HotelMangement_Service.Exceptions;
 using HotelMangement_Service.Interfaces;
+using MapsterMapper;
 
 namespace HotelMangement_Service.Services;
 
@@ -12,9 +13,12 @@ public class RoomService : IRoomService
 {
     private readonly IRoomRepository _roomRepository;
 
-    public RoomService(IRoomRepository roomRepository)
+    private readonly IMapper _mapper;
+
+    public RoomService(IRoomRepository roomRepository, IMapper mapper)
     {
         _roomRepository = roomRepository;
+        _mapper = mapper;
     }
 
     public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, Guid hotelId)
@@ -24,7 +28,7 @@ public class RoomService : IRoomService
         return await _roomRepository.AddAsync(room);
     }
 
-    public async Task<RoomDto?> GetRoomByIdAsync(Guid roomId, bool tracking = false)
+    public async Task<RoomDto> GetRoomByIdAsync(Guid roomId, bool tracking = false)
     {
         var room = await _roomRepository.GetByIdAsync(roomId, tracking);
         if (room == null)

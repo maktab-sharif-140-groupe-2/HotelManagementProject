@@ -11,4 +11,9 @@ public class GuestRepository : GenericRepository<Guest>, IGuestRepository
     public GuestRepository(AppDbContext dbContext) : base(dbContext)
     {
     }
+
+    public async Task<Guest?> GetGuestByUserNameAsync(string userName)
+    {
+        return await Entities.FirstOrDefaultAsync(x => x.UserName == userName);
+    }
 }

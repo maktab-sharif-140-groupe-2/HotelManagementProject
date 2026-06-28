@@ -15,10 +15,12 @@ namespace HotelManagementProject.DataAccess.ModelConfiguration
         {
             builder.Property(g => g.FullName).HasColumnType("NVARCHAR").HasMaxLength(50).IsRequired();
             builder.Property(g => g.NationalId).HasColumnType("NVARCHAR").HasMaxLength(10).IsRequired();
-            
-            
+            builder.Property(g => g.UserName).HasColumnType("NVARCHAR").HasMaxLength(20).IsRequired();
+            builder.Property(g => g.PasswordHash).HasColumnType("NVARCHAR(max)").IsRequired();
+
+
             builder.HasIndex(g => g.NationalId).IsUnique();
-            
+
         }
     }
 }
