@@ -3,6 +3,7 @@ using HotelManagementProject.Domain.Intefacies;
 using HotelMangement_Service.Dto.Request.RoomEntity;
 using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Interfaces;
+using MapsterMapper;
 
 namespace HotelMangement_Service.Services;
 
@@ -10,29 +11,31 @@ public class RoomService : IRoomService
 {
     private readonly IRoomRepository _roomRepository;
 
-    public RoomService(IRoomRepository roomRepository)
+    private readonly IMapper _mapper;
+
+    public RoomService(IRoomRepository roomRepository, IMapper mapper)
     {
         _roomRepository = roomRepository;
+        _mapper = mapper;
     }
 
     public async Task<bool> AddRoomAsync(int roomNumber, decimal pricePerNight, Guid hotelId)
     {
-        ValidatePrice( pricePerNight);
+        ValidatePrice(pricePerNight);
+
         var room = new Room(roomNumber, pricePerNight, hotelId);
 
         return await _roomRepository.AddAsync(room);
     }
 
-    public async Task<RoomDto?> GetRoomByIdAsync(Guid roomId, bool tracking = false)
+    public async Task<RoomDto> GetRoomByIdAsync(Guid roomId, bool tracking = false)
     {
         var room = await _roomRepository.GetByIdAsync(roomId, tracking);
 
-        return new RoomDto
-        {
-            HotelId = room.HotelId,
-            PricePerNight = room.PricePerNight,
-            RoomNumber = room.RoomNumber,
-        };
+        if (room is null)
+            throw new InvalidCastException("the room not found");
+
+        return _mapper.Map<RoomDto>(room);
     }
 
     public async Task<List<RoomDto>> GetRoomsAsync(bool tracking = false)
@@ -58,6 +61,7 @@ public class RoomService : IRoomService
             return false;
 
         ValidatePrice(roomUpdateDTO.PricePerNight);
+
         room.UpdateInfo(roomUpdateDTO.PricePerNight);
 
         return await _roomRepository.UpdateAsync(room);
