@@ -1,6 +1,7 @@
 ﻿using HotelManagementProject.Domain.Abstraction;
 using HotelManagementProject.Domain.Common;
 using HotelMangement_Service.Exceptions;
+using HotlManagementProject.Presentation.Web.ResultPattern;
 using System.Text.Json;
 
 namespace HotlManagementProject.Presentation.Web.MiddelWares;
@@ -9,7 +10,6 @@ public class GlobalExceptionHandlerMiddelWare : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-
         try
         {
             await next(context);
@@ -18,8 +18,6 @@ public class GlobalExceptionHandlerMiddelWare : IMiddleware
         {
             await ExceptionHandler(ex, context);
         }
-
-
     }
 
     private async Task ExceptionHandler(Exception exception, HttpContext context)
@@ -46,14 +44,14 @@ public class GlobalExceptionHandlerMiddelWare : IMiddleware
                 await context.Response.WriteAsync(GenerateResponseBody("Some things don't work right.", "InternalException_500"));
                 break;
         }
-
     }
 
     private string GenerateResponseBody(string message, string code)
     {
 
-        var erorr = new ErorrModel(message, code);
-        var result = ResultModel.IsFailur(erorr);
+        var erorr = new ErrorModel(message, code);
+
+        var result = Result.Failure(erorr);
 
         return JsonSerializer.Serialize(result, new JsonSerializerOptions
         {

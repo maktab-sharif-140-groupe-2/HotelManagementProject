@@ -17,6 +17,6 @@ namespace HotelManagementProject.Domain.Intefacies
 
         public IRoomRepository RoomRepository { get; }
 
-        Task SaveAsync();
+        Task<bool> SaveAsync();
     }
 }

@@ -32,7 +32,7 @@ namespace HotelManagementProject.Repository.Persistance
 
         public async Task<bool> SaveAsync()
         {
-          return  await _context.SaveChangesAsync()>0;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using HotelMangement_Service.Dto.Request.RoomEntity;
 using HotelMangement_Service.Dto.Response.RoomEntity;
 using HotelMangement_Service.Interfaces;
-using HotlManagementProject.Presentation.Web.ResultPatterns;
+using HotlManagementProject.Presentation.Web.ResultPattern;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotlManagementProject.Presentation.Web.Controllers;
@@ -22,20 +22,18 @@ public class RoomController : ControllerBase
     {
         var rooms = await _roomService.GetRoomsAsync();
 
-        return Ok(GenericResult<List<RoomDto>>.Success(
-            rooms,
-            "Rooms retrieved successfully."
+        return Ok(Result<List<RoomDto>>.Success(
+            rooms
             ));
     }
 
-[HttpGet("{roomId:Guid}")]
+    [HttpGet("{roomId:Guid}")]
     public async Task<ActionResult<RoomDto>> GetRoomByIdAsync([FromRoute] Guid roomId)
     {
         var room = await _roomService.GetRoomByIdAsync(roomId);
 
-        return Ok(GenericResult<RoomDto>.Success(
-            room,
-            "Room retrieved successfully."
+        return Ok(Result<RoomDto>.Success(
+            room
         ));
     }
 
@@ -47,7 +45,7 @@ public class RoomController : ControllerBase
             createRoomDto.PricePerNight,
             createRoomDto.HotelId);
 
-        return Ok(Result.Success("Room created successfully."));
+        return Ok(Result.Success());
     }
 
     [HttpDelete("{roomId:Guid}")]
@@ -56,7 +54,7 @@ public class RoomController : ControllerBase
 
         await _roomService.SoftDeleteAsync(roomId);
 
-        return Ok(Result.Success("Room deleted successfully."));
+        return Ok(Result.Success());
     }
 
     [HttpPatch]
@@ -65,6 +63,6 @@ public class RoomController : ControllerBase
 
         await _roomService.UpdateRoomAsync(roomUpdateDTO);
 
-        return Ok(Result.Success("Room updated successfully."));
+        return Ok(Result.Success());
     }
 }
