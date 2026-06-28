@@ -1,4 +1,6 @@
-﻿namespace HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Abstraction;
+
+namespace HotelManagementProject.Domain.Entites;
 
 public class Hotel : BaseEntity
 {
@@ -16,15 +18,12 @@ public class Hotel : BaseEntity
     protected override void Validation()
     {
         if(string.IsNullOrEmpty(Name))
-            throw new ArgumentNullException("HotleName can't be null");
+            throw new DomainException(DomainErrors.NullOrWithSpeaceError("Hotel Name"));
         if(string.IsNullOrEmpty(City))
-            throw new ArgumentNullException("city can't be null");
+            throw new DomainException(DomainErrors.NullOrWithSpeaceError("City Name"));
     }
-    public  bool AddRoomAsync(Room room)
+    public void AddRoom(Room room)
     {
-        if (Rooms.Any(x => x.RoomNumber == room.RoomNumber))
-            throw new InvalidDataException("The Room Number is Exist ");
           Rooms.Add(room);
-        return true;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
+using HotelMangement_Service.Errors;
+using HotelMangement_Service.Exceptions;
 using HotelMangement_Service.Interfaces;
 namespace HotelMangement_Service.Services;
 public class BookingService : IBookingService
@@ -17,7 +19,7 @@ public class BookingService : IBookingService
     {
         var booking=await _bookingRepository.GetByIdAsync(bookingId);
         if (booking == null)
-            throw new InvalidDataException("the booking id is invalid");
+            throw new NotFoundException(ApplicationErrors.NotExsitingError("booking"));
         booking.Delete();
         return true;
     }
@@ -27,12 +29,8 @@ public class BookingService : IBookingService
         var room = await _roomRepository.GetByIdAsync(roomId);
         if (room == null)
         {
-            throw new ArgumentNullException("Not Exist this Room");
+            throw new NotFoundException(ApplicationErrors.NotExsitingError("Room"));
         }
-        if (daysofStay == 0)
-            throw new ArgumentException("days of stay can't be zero");
-        if (daysofStay > 100)
-            throw new ArgumentException("days of stay can't be more than 100");
         await CheckForConflictBooking(roomId, enteryDate, daysofStay);
         var booking = new Booking(roomId, enteryDate, enteryDate.AddDays(daysofStay),guestId);
         return await _bookingRepository.AddAsync(booking);
@@ -46,7 +44,7 @@ public class BookingService : IBookingService
         enteryDate < x.CheckOut &&
             checkOut > x.CheckIn);
         if (hasConflict)
-            throw new InvalidDataException("this time room is reserved");
+            throw new DouplicateException(ApplicationErrors.HasRecordError("ReserveTime"));
         return true;
     }
 

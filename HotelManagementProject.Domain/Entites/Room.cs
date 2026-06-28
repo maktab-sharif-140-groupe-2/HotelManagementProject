@@ -1,4 +1,6 @@
-﻿namespace HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Abstraction;
+
+namespace HotelManagementProject.Domain.Entites;
 
 public class Room : BaseEntity
 {
@@ -19,9 +21,9 @@ public class Room : BaseEntity
     protected override void Validation()
     {
         if (RoomNumber < 0)
-            throw new InvalidDataException("Room Number can't be negative");
+            throw new DomainException(DomainErrors.NegativeError("RoomNumber"));
         if (PricePerNight < 0)
-            throw new InvalidDataException("Price can't be negative");
+            throw new DomainException(DomainErrors.NegativeError("PricePerNight"));
     }
 
     public void UpdateInfo(decimal pricePerNight)

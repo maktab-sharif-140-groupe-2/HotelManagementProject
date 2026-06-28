@@ -1,4 +1,6 @@
-﻿namespace HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Abstraction;
+
+namespace HotelManagementProject.Domain.Entites;
 
 public class Guest : BaseEntity
 {
@@ -26,18 +28,18 @@ public class Guest : BaseEntity
     protected override void Validation()
     {
         if(string.IsNullOrEmpty(FullName))
-            throw new ArgumentNullException("FullName Can't be null",nameof(FullName));
+            throw new DomainException(DomainErrors.NullOrWithSpeaceError("Guest Fullname"));
     }
     private void ValidateNationalCode(string nationalCode)
     {
         if (string.IsNullOrWhiteSpace(nationalCode))
-            throw new ArgumentNullException("your NationalCode cannot be null or empty");
+            throw new DomainException(DomainErrors.NullOrWithSpeaceError("NationalCode"));
 
         if (nationalCode.Length != 10)
-            throw new InvalidOperationException("the national code length is less or higher than 10 characters");
+            throw new DomainException(DomainErrors.InvalidCharcterLengthError("NationalCode"));
 
         if (!nationalCode.All(char.IsDigit))
-            throw new InvalidOperationException("for thee national code all characters must be digit");
+            throw new DomainException(DomainErrors.BeNumberError("NationalCode"));
     }
     public void AddBooking(Booking booking)
     {

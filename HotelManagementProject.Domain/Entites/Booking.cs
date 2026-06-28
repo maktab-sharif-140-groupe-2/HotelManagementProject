@@ -1,4 +1,7 @@
-﻿namespace HotelManagementProject.Domain.Entites;
+﻿using HotelManagementProject.Domain.Abstraction;
+using System.ComponentModel.DataAnnotations;
+
+namespace HotelManagementProject.Domain.Entites;
 
 public class Booking : BaseEntity
 {
@@ -22,7 +25,7 @@ public class Booking : BaseEntity
     protected override void Validation()
     {
         if (CheckIn >= CheckOut)
-            throw new InvalidDataException("CheckIn can't be farther CheckOut ");
+            throw new DomainException(DomainErrors.InvalidCheckoutTimeError());
     }
  
 }
