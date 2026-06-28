@@ -48,7 +48,6 @@ public class GlobalExceptionHandlerMiddelWare : IMiddleware
 
     private string GenerateResponseBody(string message, string code)
     {
-
         var erorr = new ErrorModel(message, code);
 
         var result = Result.Failure(erorr);
