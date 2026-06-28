@@ -1,5 +1,5 @@
 ﻿using HotelManagementProject.DataAccess.AppDbContextFile;
-using HotelManagementProject.Domain.Abstraction;
+using HotelManagementProject.Domain.Entites;
 using HotelManagementProject.Domain.Intefacies;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -20,9 +20,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public async Task<bool> AddAsync(T entity)
     {
-        await Entities.AddAsync(entity);
+      var entry=  await Entities.AddAsync(entity);
 
-        return await _dbContext.SaveChangesAsync() > 0;
+        return entry.State==EntityState.Added;
     }
 
     public async Task<List<TResult>> QueryAsync<TResult>(Expression<Func<T, TResult>> selector, bool tracking = false)
@@ -61,17 +61,17 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         if (entity == null)
             return false;
 
-        entity.Delete();
+         entity.Delete();
 
-        return await _dbContext.SaveChangesAsync() > 0;
+        return true;
     }
 
     public async Task<bool> UpdateAsync(T entity)
     {
         entity.Update();
 
-        Entities.Update(entity);
+       var entry= Entities.Update(entity);
 
-        return await _dbContext.SaveChangesAsync() > 0;
+        return entry.State==EntityState.Modified;
     }
 }

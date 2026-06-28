@@ -1,4 +1,4 @@
-﻿using HotelManagementProject.Domain.Abstraction;
+﻿using HotelManagementProject.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

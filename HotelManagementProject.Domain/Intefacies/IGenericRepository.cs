@@ -1,4 +1,4 @@
-﻿using HotelManagementProject.Domain.Abstraction;
+﻿using HotelManagementProject.Domain.Entites;
 using System.Linq.Expressions;
 
 namespace HotelManagementProject.Domain.Intefacies;
